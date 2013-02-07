@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="UMLPuzzle">
+  <logicalClassDesignerModelMoniker Id="f8aacd56-f79f-472e-8e9c-bd2e054bc088" />
+  <nestedChildShapes>
+    <classShape Id="6d830f5e-7054-4d8b-8f51-b3e9d97f5ea6" absoluteBounds="3.125, 0.875, 2.125, 1.7031249602635699" hideQualifiedName="false" increaseHeight="0" customColor="181, 193, 223">
+      <classMoniker Id="b08b19d8-b485-4328-b3a5-aab894abd05b" LastKnownName="PuzzleController" />
+      <nestedChildShapes>
+        <AttributeElementListCompartment Id="0f087cf6-68d3-4232-b672-d83fb9bf84cf" absoluteBounds="3.14, 1.2650000000000001, 2.0949999999999998, 0.52148435761531187" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <OperationElementListCompartment Id="656b9825-f008-4084-96e1-0879fab10342" absoluteBounds="3.14, 1.796484357615312, 2.0949999999999998, 0.68164060264825832" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="99a0ec4d-186a-481b-bdfd-dec334dbd7db" absoluteBounds="1.125, 0.875, 1.5, 1.3828124701976776" hideQualifiedName="false" increaseHeight="0" customColor="181, 193, 223">
+      <classMoniker Id="15045f12-d52f-4dd8-aaf3-518f15d15399" LastKnownName="PuzzleItem" />
+      <nestedChildShapes>
+        <AttributeElementListCompartment Id="3d623d94-e329-49fc-9fb4-b9713ea593cc" absoluteBounds="1.14, 1.2650000000000001, 1.4700000000000002, 0.52148435761531187" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <OperationElementListCompartment Id="8489b5ee-87ad-4ee7-a68c-4c7cd1029a1a" absoluteBounds="1.14, 1.796484357615312, 1.4700000000000002, 0.36132811258236563" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</logicalClassDesignerDiagram>

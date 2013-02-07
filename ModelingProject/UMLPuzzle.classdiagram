@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" dslVersion="1.0.0.0" Id="f8aacd56-f79f-472e-8e9c-bd2e054bc088" name="UMLPuzzle" linkedPackageId="31fe4761-a8dd-4339-8aba-1b775a566678" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="ee78a3a0-86c6-44bd-996c-8dcb7453a756">
+      <profileInstance Id="60e347c8-1114-426e-88b7-abc67cdd41e1" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="d805612a-5ce7-4bdd-b5ff-e08f49d535d2">
+      <profileInstance Id="979eb543-5133-48d7-9a75-0fa013decbe0" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="b08b19d8-b485-4328-b3a5-aab894abd05b" name="PuzzleController" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="f59c2363-8e9f-4af8-8d23-acc27a3dfee5" />
+        <ownedAttributesInternal>
+          <property Id="843151e1-9996-459e-bad9-eb002fbbb9fc" name="PuzzleItem" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <lowerValueInternal>
+              <literalString Id="e7f73910-6925-4325-8b88-a8337696f15b" name="Lower" value="8">
+                <elementDefinition Id="128224e6-6a9f-495a-9c68-55e9d0bd52eb" />
+              </literalString>
+            </lowerValueInternal>
+            <upperValueInternal>
+              <literalString Id="3da23cec-4492-40b5-8365-3704c33aa9e2" name="Upper" value="8">
+                <elementDefinition Id="f50ec0fe-f20f-430f-8ddb-153561affc4d" />
+              </literalString>
+            </upperValueInternal>
+            <elementDefinition Id="f1593e27-31d2-4000-88b9-4d4be119269b" />
+          </property>
+          <property Id="786058e6-8be5-44ef-a6da-8fe283ce463f" name="finishedItems" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <lowerValueInternal>
+              <literalString Id="9c13a657-8ca0-4f7e-ab71-9723e9c7df0a" name="Lower" value="8">
+                <elementDefinition Id="84ba6e83-c1f5-44bd-aa5e-ddb90057b881" />
+              </literalString>
+            </lowerValueInternal>
+            <upperValueInternal>
+              <literalString Id="fa86eda5-d9c9-4f47-8217-c420ae790c47" name="Upper" value="8">
+                <elementDefinition Id="e589362c-2aca-4657-85a4-36a70fe87009" />
+              </literalString>
+            </upperValueInternal>
+            <elementDefinition Id="4d44b810-5a69-4f88-9b63-ac5e591ff9b8" />
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="587c669d-2af3-4508-a5e4-7f4d1814c79e" name="Move" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="3e5f93e7-5f77-4098-bdc5-9c7076d23cb7" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="284a8175-f254-49e8-8731-862d4a5c39ae" direction="Return" isUnique="false">
+                  <elementDefinition Id="39062017-2a2d-44ad-b7c7-077ff802835b" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="4b964725-a5b9-4d5b-bdaf-f62c42b03a4d" LastKnownName="bool" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="1a20d229-f75d-484d-b194-6c57e45d0523" name="PuzzleItem" direction="In" isUnique="false">
+                  <elementDefinition Id="5ed39899-5b58-4ef0-a04a-325707de7f39" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="ca98131e-f668-4348-b160-854e2a6ff3c0" name="IsFinished" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="20996d62-29ef-488e-9727-392b94a94132" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="366925c2-8927-47e3-a4c6-0526b46a145b" direction="Return" isUnique="false">
+                  <elementDefinition Id="4e603411-d473-4385-8688-fb3176daa036" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="4b964725-a5b9-4d5b-bdaf-f62c42b03a4d" LastKnownName="bool" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="075c03b7-61ad-4d84-9373-bbb75c64911f" name="Shuffle" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="7bb5f5db-df75-494d-92af-03ea09bc853d" />
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="15045f12-d52f-4dd8-aaf3-518f15d15399" name="PuzzleItem" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="dfec9c62-ef16-4f9b-9bda-349fb6a3def5" />
+        <ownedAttributesInternal>
+          <property Id="e11e606a-5a6d-4046-b884-bf7d496d5899" name="Location" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="bf7237a1-9349-4ac2-a727-03a419d0fef5" />
+          </property>
+          <property Id="bd5693e0-8501-442f-b4aa-18ad33f24b67" name="Image" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="a537f058-f9c8-4715-85be-d8fa19c71f72" />
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="31895121-5f40-43c3-bd50-158e2ecee2ef" name=".ctor" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="faf6f5bc-efb4-4292-9319-e37ee8d4a5c4" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="8de5610a-488c-4be3-a280-a8b8b2f84572" name="Location" direction="In" isUnique="false">
+                  <elementDefinition Id="8a8291f9-237b-48eb-a920-983def1b619c" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="f24347b0-e480-411e-a781-0637d49bdf7f" name="Image" direction="In" isUnique="false">
+                  <elementDefinition Id="656d8bfa-a385-447f-bef2-69e1063ad6d5" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="4b964725-a5b9-4d5b-bdaf-f62c42b03a4d" name="bool" isAbstract="false" isLeaf="false" cachedFullName="bool">
+        <elementDefinition Id="b43addaf-6b4e-47c5-b7e4-9745e033c751" />
+      </referencedType>
+    </packageHasNamedElement>
+  </packagedElements>
+  <package Id="31fe4761-a8dd-4339-8aba-1b775a566678" name="ModelingProject">
+    <elementDefinition Id="79fb5d36-e648-40d9-9f8a-ebe35d51c431" />
+  </package>
+</logicalClassDesignerModel>
