@@ -21,13 +21,15 @@ namespace PuzzleGame {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window {
+    public partial class MainWindow : AeroWindow {
 
         private Image[] imgs;
         private PuzzleController ctr;
 
         private Timer timer;
         private Stopwatch watch;
+
+        private int moveCount = 0;
 
         public MainWindow () {
             ctr = new PuzzleController ();
@@ -56,6 +58,7 @@ namespace PuzzleGame {
 
                 img.MouseDown += ( a, e ) => {
                     if ( started ) {
+                        label2.Content = "Moves: " + ++moveCount;
                         Point p = (Point) img.Tag;
                         ctr.Move ( ctr.GetItem ( p ) );
                     }
@@ -65,6 +68,9 @@ namespace PuzzleGame {
             ctr.PuzzleFinished += ( a, e ) => {
                 Dispatcher.BeginInvoke ( new Action ( () => {
                     timer.Stop ();
+                    watch.Stop ();
+
+                    //started = false;
                     autoSolving = false;
                     MessageBox.Show ( "CONGRATS YOU WON. HAVE A COOKIE" );
                 } ) );
@@ -114,6 +120,9 @@ namespace PuzzleGame {
                 ctr.Shuffle ();
 
                 watch.Start ();
+
+                moveCount = 0;
+                label2.Content = "Moves: 0";
                 timer.Elapsed += ( a, o ) => {
                     if ( autoSolving ) {
                         Dispatcher.BeginInvoke ( new Action ( () => {
@@ -165,6 +174,10 @@ namespace PuzzleGame {
                     autoSolving = true;
                 }
             }
+        }
+
+        private void AeroWindow_Loaded ( object sender, RoutedEventArgs e ) {
+            GlassArea = new Margins ( -1 );
         }
 
     }
