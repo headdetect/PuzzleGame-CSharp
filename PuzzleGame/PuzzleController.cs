@@ -190,6 +190,16 @@ namespace PuzzleGame {
 
         }
 
+
+        public void Reset () {
+            for ( int i = 0; i < 9; i++ ) {
+                PuzzleItem solve = solveItems[ i ];
+
+                Items[ i ].Location = solve.Location;
+            }
+
+            causeUpdate ();
+        }
     }
 
 }

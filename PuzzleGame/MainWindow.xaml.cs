@@ -27,6 +27,7 @@ namespace PuzzleGame {
         private PuzzleController ctr;
 
         private Timer timer;
+        private Stopwatch watch;
 
         public MainWindow () {
             ctr = new PuzzleController ();
@@ -95,6 +96,9 @@ namespace PuzzleGame {
                 } ) );
             };
 
+            watch = new Stopwatch ();
+            timer = new Timer ( 1 );
+
             ctr.CreatePuzzles ( "woof.jpg" );
         }
 
@@ -103,9 +107,8 @@ namespace PuzzleGame {
         private void button1_Click ( object sender, RoutedEventArgs e ) {
 
 
-            button1.Content = started ? "Stop" : "Start";
-            Stopwatch watch = new Stopwatch ();
-            timer = new Timer ( 1 );
+            button1.Content = !started ? "Stop" : "Start";
+            watch.Reset ();
 
             if ( !started ) {
                 ctr.Shuffle ();
@@ -147,6 +150,8 @@ namespace PuzzleGame {
             } else {
                 watch.Stop ();
                 timer.Stop ();
+
+                ctr.Reset ();
             }
 
             started = !started;
@@ -155,7 +160,7 @@ namespace PuzzleGame {
         private bool autoSolving = false;
 
         private void Window_KeyDown ( object sender, KeyEventArgs e ) {
-            if ( e.Key == Key.H ) {
+            if ( e.Key == Key.H && started) {
                 if ( MessageBox.Show ( "Would you like to auto solve?", "You cheater", MessageBoxButton.YesNo ) == MessageBoxResult.Yes ) {
                     autoSolving = true;
                 }
