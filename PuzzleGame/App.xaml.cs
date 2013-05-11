@@ -10,5 +10,10 @@ namespace PuzzleGame {
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application {
+
+        private void StartupHandler ( object sender, StartupEventArgs e ) {
+            Elysium.Manager.Apply ( this, Elysium.Theme.Dark );
+        }
+
     }
 }

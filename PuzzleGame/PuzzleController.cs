@@ -17,13 +17,22 @@ namespace PuzzleGame {
         public event EventHandler PuzzleUpdateInterface;
         public event EventHandler PuzzleFinished;
 
-        public PuzzleItem[] Items { get; private set; }
-        private PuzzleItem[] solveItems;
+        public PuzzleItem[] Items {
+            get;
+            private set;
+        }
+
+        public Bitmap Image {
+            get;
+            set;
+        }
+
+        private readonly PuzzleItem[] _solveItems;
 
 
         public PuzzleController () {
             Items = new PuzzleItem[ 9 ];
-            solveItems = new PuzzleItem[ 9 ];
+            _solveItems = new PuzzleItem[ 9 ];
 
         }
 
@@ -40,41 +49,45 @@ namespace PuzzleGame {
             PuzzleItem bottom = GetItem ( curr.Add ( new Point ( 0, 1 ) ) );
             PuzzleItem right = GetItem ( curr.Add ( new Point ( 1, 0 ) ) );
 
-            if ( top == PuzzleItem.EMPTY_PUZZLE ) {
+            if ( top == PuzzleItem.EmptyPuzzle ) {
                 itm.Location = curr.Add ( new Point ( 0, -1 ) );
-                PuzzleItem.EMPTY_PUZZLE.Location = curr;
-                Items[ GetIndex ( itm ) ] = PuzzleItem.EMPTY_PUZZLE;
+                PuzzleItem.EmptyPuzzle.Location = curr;
+                Items[ GetIndex ( itm ) ] = PuzzleItem.EmptyPuzzle;
                 Items[ GetIndex ( top ) ] = itm;
-            } else if ( left == PuzzleItem.EMPTY_PUZZLE ) {
+            }
+            else if ( left == PuzzleItem.EmptyPuzzle ) {
                 itm.Location = curr.Add ( new Point ( -1, 0 ) );
-                PuzzleItem.EMPTY_PUZZLE.Location = curr;
-                Items[ GetIndex ( itm ) ] = PuzzleItem.EMPTY_PUZZLE;
+                PuzzleItem.EmptyPuzzle.Location = curr;
+                Items[ GetIndex ( itm ) ] = PuzzleItem.EmptyPuzzle;
                 Items[ GetIndex ( left ) ] = itm;
-            } else if ( bottom == PuzzleItem.EMPTY_PUZZLE ) {
+            }
+            else if ( bottom == PuzzleItem.EmptyPuzzle ) {
                 itm.Location = curr.Add ( new Point ( 0, 1 ) );
-                PuzzleItem.EMPTY_PUZZLE.Location = curr;
-                Items[ GetIndex ( itm ) ] = PuzzleItem.EMPTY_PUZZLE;
+                PuzzleItem.EmptyPuzzle.Location = curr;
+                Items[ GetIndex ( itm ) ] = PuzzleItem.EmptyPuzzle;
                 Items[ GetIndex ( bottom ) ] = itm;
-            } else if ( right == PuzzleItem.EMPTY_PUZZLE ) {
+            }
+            else if ( right == PuzzleItem.EmptyPuzzle ) {
                 itm.Location = curr.Add ( new Point ( 1, 0 ) );
-                PuzzleItem.EMPTY_PUZZLE.Location = curr;
-                Items[ GetIndex ( itm ) ] = PuzzleItem.EMPTY_PUZZLE;
+                PuzzleItem.EmptyPuzzle.Location = curr;
+                Items[ GetIndex ( itm ) ] = PuzzleItem.EmptyPuzzle;
                 Items[ GetIndex ( right ) ] = itm;
-            } else {
+            }
+            else {
                 if ( update )
-                    causeUpdate ();
+                    CauseUpdate ();
                 _checkFinish ();
                 return false;
             }
 
             if ( update )
-                causeUpdate ();
+                CauseUpdate ();
             _checkFinish ();
             return true;
         }
 
         public void Shuffle () {
-            Point[] points = new Point[]{
+            var points = new Point[]{
                 new Point(0, 0),
                 new Point(1, 0),
                 new Point(2, 0),
@@ -93,7 +106,7 @@ namespace PuzzleGame {
                 Items[ i ].Location = points[ i ];
             }
 
-            causeUpdate ();
+            CauseUpdate ();
         }
 
         public PuzzleItem GetItem ( Point point ) {
@@ -113,10 +126,10 @@ namespace PuzzleGame {
         }
 
 
-        public void CreatePuzzles ( String str ) {
+        public void CreatePuzzles () {
             try {
 
-                Bitmap full = Image.FromFile ( str ) as Bitmap;
+                Bitmap full = Image;
 
                 int w = full.Width;
                 int h = full.Height;
@@ -139,19 +152,21 @@ namespace PuzzleGame {
                         Point point = new Point ( x, y );
                         Bitmap img = full.Clone ( new Rectangle ( xPos, yPos, wSize, hSize ), System.Drawing.Imaging.PixelFormat.Format32bppArgb );
                         Items[ i ] = new PuzzleItem ( img, point );
-                        solveItems[ i ] = new PuzzleItem ( img, point );
-                    } else {
-                        Items[ i ] = PuzzleItem.EMPTY_PUZZLE;
-                        solveItems[ i ] = PuzzleItem.EMPTY_PUZZLE;
+                        _solveItems[ i ] = new PuzzleItem ( img, point );
+                    }
+                    else {
+                        Items[ i ] = PuzzleItem.EmptyPuzzle;
+                        _solveItems[ i ] = PuzzleItem.EmptyPuzzle;
                     }
 
                 }
 
 
 
-                causeUpdate ();
+                CauseUpdate ();
 
-            } catch ( Exception e ) {
+            }
+            catch ( Exception e ) {
                 MessageBox.Show ( "Error creating puzzle\n" + e.Message + Environment.NewLine + e.StackTrace );
             }
         }
@@ -167,7 +182,7 @@ namespace PuzzleGame {
         }
 
 
-        internal void causeUpdate () {
+        internal void CauseUpdate () {
             if ( PuzzleUpdateInterface != null ) {
                 PuzzleUpdateInterface ( this, new EventArgs () );
             }
@@ -177,7 +192,7 @@ namespace PuzzleGame {
 
             for ( int i = 0; i < 9; i++ ) {
                 PuzzleItem check = Items[ i ];
-                PuzzleItem solve = solveItems[ i ];
+                PuzzleItem solve = _solveItems[ i ];
 
                 if ( check.Location != solve.Location ) {
                     return;
@@ -193,12 +208,12 @@ namespace PuzzleGame {
 
         public void Reset () {
             for ( int i = 0; i < 9; i++ ) {
-                PuzzleItem solve = solveItems[ i ];
+                PuzzleItem solve = _solveItems[ i ];
 
                 Items[ i ].Location = solve.Location;
             }
 
-            causeUpdate ();
+            CauseUpdate ();
         }
     }
 

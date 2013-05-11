@@ -1,10 +1,12 @@
-﻿<src:AeroWindow
+﻿<metro:Window
         x:Class="PuzzleGame.MainWindow"
-        xmlns:src="clr-namespace:PuzzleGame"
+        xmlns:metro="clr-namespace:Elysium.Controls;assembly=Elysium"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         
-        Title="Puzzle Thing" Height="467" Width="383" KeyDown="Window_KeyDown" Loaded="AeroWindow_Loaded">
+        Title="Puzzle Thing" Height="467" Width="380.333" KeyDown="Window_KeyDown" ResizeMode="NoResize">
+
+
     <Grid>
         <Grid>
             <Image Height="100" HorizontalAlignment="Left" Margin="23,99,0,0" Name="img1" Stretch="Fill" VerticalAlignment="Top" Width="100" />
@@ -16,9 +18,9 @@
             <Image Height="100" HorizontalAlignment="Left" Margin="23,205,0,0" Name="img4" Stretch="Fill" VerticalAlignment="Top" Width="100" />
             <Image Height="100" HorizontalAlignment="Left" Margin="129,205,0,0" Name="img5" Stretch="Fill" VerticalAlignment="Top" Width="100" />
             <Image Height="100" HorizontalAlignment="Left" Margin="235,205,0,0" Name="img6" Stretch="Fill" VerticalAlignment="Top" Width="100" />
-            <Button Content="Start" Height="58" HorizontalAlignment="Left" Margin="235,6,0,0" Name="button1" VerticalAlignment="Top" Width="100" Click="button1_Click" />
-            <Label Content="Timer: 00:00:000" Height="42" HorizontalAlignment="Left" Margin="23,22,0,0" Name="label1" VerticalAlignment="Top" FontSize="17" Width="143" />
-            <Label Content="Moves: 0" Height="28" HorizontalAlignment="Left" Margin="23,65,0,0" Name="label2" VerticalAlignment="Top" />
+            <Button Content="Start" Height="58" HorizontalAlignment="Left" Margin="250,22,0,0" Name="button1" VerticalAlignment="Top" Width="100" Click="button1_Click" />
+            <Label Content="Timer: 00:00:000" Height="42" HorizontalAlignment="Left" Margin="23,22,0,0" Name="label1" VerticalAlignment="Top" FontSize="17" Width="143" Foreground="White" />
+            <Label Content="Moves: 0" Height="28" HorizontalAlignment="Left" Margin="23,65,0,0" Name="label2" VerticalAlignment="Top" Foreground="White" />
         </Grid>
     </Grid>
-</src:AeroWindow >
+</metro:Window >

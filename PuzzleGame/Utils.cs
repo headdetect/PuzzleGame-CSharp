@@ -30,7 +30,8 @@ namespace PuzzleGame {
                 bs = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap ( ip,
                    IntPtr.Zero, Int32Rect.Empty,
                    System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions () );
-            } finally {
+            }
+            finally {
                 DeleteObject ( ip );
             }
 

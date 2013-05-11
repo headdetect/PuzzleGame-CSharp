@@ -1,43 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Drawing;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Diagnostics;
 using System.Timers;
-using Thread = System.Threading.Thread;
-using ThreadStart = System.Threading.ThreadStart;
+using Microsoft.Win32;
+using Image = System.Windows.Controls.Image;
+using Point = System.Windows.Point;
 
 namespace PuzzleGame {
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : AeroWindow {
+    public partial class MainWindow {
 
-        private Image[] imgs;
-        private PuzzleController ctr;
+        private readonly Image[] _imgs;
+        private readonly PuzzleController _ctr;
 
-        private Timer timer;
-        private Stopwatch watch;
+        private readonly Timer _timer;
+        private readonly Stopwatch _watch;
 
-        private int moveCount = 0;
+        private int _moveCount;
 
         public MainWindow () {
-            ctr = new PuzzleController ();
+            _ctr = new PuzzleController ();
 
             InitializeComponent ();
 
 
-            imgs = new Image[] {
+            _imgs = new[] {
                 img1,
                 img2,
                 img3,
@@ -52,41 +44,41 @@ namespace PuzzleGame {
 
 
             for ( int i = 0; i < 9; i++ ) {
-                Image img = imgs[ i ];
+                Image img = _imgs[ i ];
 
-                img.Tag = new Point ( i % 3, i / 3 );
+                img.Tag = new Point ( i % 3, (int) ( i / 3 ) );
 
                 img.MouseDown += ( a, e ) => {
-                    if ( started ) {
-                        label2.Content = "Moves: " + ++moveCount;
+                    if ( _started ) {
+                        label2.Content = "Moves: " + ++_moveCount;
                         Point p = (Point) img.Tag;
-                        ctr.Move ( ctr.GetItem ( p ) );
+                        _ctr.Move ( _ctr.GetItem ( p ) );
                     }
                 };
             }
 
-            ctr.PuzzleFinished += ( a, e ) => {
+            _ctr.PuzzleFinished += ( a, e ) => {
                 Dispatcher.BeginInvoke ( new Action ( () => {
-                    timer.Stop ();
-                    watch.Stop ();
+                    _timer.Stop ();
+                    _watch.Stop ();
 
                     //started = false;
-                    autoSolving = false;
+                    _autoSolving = false;
                     MessageBox.Show ( "CONGRATS YOU WON. HAVE A COOKIE" );
                 } ) );
             };
 
-            ctr.PuzzleUpdateInterface += ( a, e ) => {
+            _ctr.PuzzleUpdateInterface += ( a, e ) => {
                 Dispatcher.BeginInvoke ( new Action ( () => {
                     for ( int i = 0; i < 9; i++ ) {
-                        Image img = imgs[ i ];
+                        var img = _imgs[ i ];
 
-                        Point point = (Point) img.Tag;
+                        var point = (Point) img.Tag;
 
                         for ( int j = 0; j < 9; j++ ) {
-                            PuzzleItem itm = ctr.Items[ j ];
+                            PuzzleItem itm = _ctr.Items[ j ];
 
-                            if ( itm == PuzzleItem.EMPTY_PUZZLE ) {
+                            if ( itm == PuzzleItem.EmptyPuzzle ) {
                                 img.Source = null;
                                 break;
                             }
@@ -102,31 +94,38 @@ namespace PuzzleGame {
                 } ) );
             };
 
-            watch = new Stopwatch ();
-            timer = new Timer ( 1 );
+            _watch = new Stopwatch ();
+            _timer = new Timer ( 1 );
 
-            ctr.CreatePuzzles ( "woof.jpg" );
+            
         }
 
-        private bool started = false;
+        private bool _started;
 
         private void button1_Click ( object sender, RoutedEventArgs e ) {
 
 
-            button1.Content = !started ? "Stop" : "Start";
-            watch.Reset ();
+            button1.Content = !_started ? "Stop" : "Start";
+            _watch.Reset ();
 
-            if ( !started ) {
-                ctr.Shuffle ();
+            if ( !_started ) {
+                _ctr.Image = getImage ();
 
-                watch.Start ();
+                if ( _ctr.Image == null )
+                    return;
 
-                moveCount = 0;
+                _ctr.CreatePuzzles ();
+
+                _ctr.Shuffle ();
+
+                _watch.Start ();
+
+                _moveCount = 0;
                 label2.Content = "Moves: 0";
-                timer.Elapsed += ( a, o ) => {
-                    if ( autoSolving ) {
+                _timer.Elapsed += ( a, o ) => {
+                    if ( _autoSolving ) {
                         Dispatcher.BeginInvoke ( new Action ( () => {
-                            Point[] points = new Point[]{
+                            var points = new[]{
                                 new Point(0, 0),
                                 new Point(1, 0),
                                 new Point(2, 0),
@@ -143,42 +142,52 @@ namespace PuzzleGame {
                             for ( int i = 0; i < 9; i++ ) {
 
                                 Point point = points[ i ];
-                                PuzzleItem itm = ctr.GetItem ( point );
-                                ctr.Move ( itm, false );
+                                PuzzleItem itm = _ctr.GetItem ( point );
+                                _ctr.Move ( itm, false );
 
                             }
 
-                            ctr.causeUpdate ();
+                            _ctr.CauseUpdate ();
                         } ) );
                     }
 
-                    label1.Dispatcher.BeginInvoke ( new Action ( () => { label1.Content = string.Format ( "Timer: {0:mm}:{0:ss}.{0:fff} ", watch.Elapsed ); } ), null );
+                    label1.Dispatcher.BeginInvoke ( new Action ( () => {
+                        label1.Content = string.Format ( "Timer: {0:mm}:{0:ss}.{0:fff} ", _watch.Elapsed );
+                    } ), null );
                 };
 
-                timer.Start ();
-            } else {
-                watch.Stop ();
-                timer.Stop ();
+                _timer.Start ();
+            }
+            else {
+                _watch.Stop ();
+                _timer.Stop ();
 
-                ctr.Reset ();
+                _ctr.Reset ();
             }
 
-            started = !started;
+            _started = !_started;
         }
 
-        private bool autoSolving = false;
+        private Bitmap getImage() {
+            var dialog = new OpenFileDialog {Filter = "Images (.bmp, .png, .jpg, .jpeg)|*.bmp;*.png;*.jpg;*.jpeg"};
+
+            bool? result = dialog.ShowDialog();
+
+            if ( result.HasValue && result.Value ) {
+                return (Bitmap) System.Drawing.Image.FromFile( dialog.FileName );
+            }
+            return null;
+        }
+
+        private bool _autoSolving;
 
         private void Window_KeyDown ( object sender, KeyEventArgs e ) {
-            if ( e.Key == Key.H && started) {
-                if ( MessageBox.Show ( "Would you like to auto solve?", "You cheater", MessageBoxButton.YesNo ) == MessageBoxResult.Yes ) {
-                    autoSolving = true;
-                }
+            if ( e.Key != Key.H || !_started )
+                return;
+
+            if ( MessageBox.Show ( "Would you like to auto solve?", "You cheater", MessageBoxButton.YesNo ) == MessageBoxResult.Yes ) {
+                _autoSolving = true;
             }
         }
-
-        private void AeroWindow_Loaded ( object sender, RoutedEventArgs e ) {
-            GlassArea = new Margins ( -1 );
-        }
-
     }
 }

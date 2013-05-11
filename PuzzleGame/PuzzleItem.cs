@@ -8,7 +8,7 @@ using System.Drawing;
 namespace PuzzleGame {
     public class PuzzleItem {
 
-        public static readonly PuzzleItem EMPTY_PUZZLE = new PuzzleItem ( null, new Point ( 2, 2 ) );
+        public static readonly PuzzleItem EmptyPuzzle = new PuzzleItem ( null, new Point ( 2, 2 ) );
 
 
         public Bitmap Image { get; set; }
